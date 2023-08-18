@@ -11,12 +11,12 @@ export async function studentsRoutes(app: FastifyInstance) {
   })
 
   app.get('/students/:id', async (req, reply) => {
-    try {
-      const paramsSchema = z.object({
-        id: z.string(),
-      })
-      const { id } = paramsSchema.parse(req.params)
+    const paramsSchema = z.object({
+      id: z.string(),
+    })
+    const { id } = paramsSchema.parse(req.params)
 
+    try {
       const student = await prisma.student.findUniqueOrThrow({
         where: { id },
       })
@@ -25,7 +25,9 @@ export async function studentsRoutes(app: FastifyInstance) {
     } catch (err) {
       if (err instanceof Prisma.PrismaClientKnownRequestError) {
         if (err.code === 'P2023') {
-          reply.status(404).send()
+          reply.status(404).send({
+            message: `Student not found for id ${id}`,
+          })
         }
       }
     }
@@ -48,5 +50,70 @@ export async function studentsRoutes(app: FastifyInstance) {
     })
 
     return res.status(201).send(student)
+  })
+
+  app.put('/students/:id', async (req, reply) => {
+    const paramsSchema = z.object({
+      id: z.string(),
+    })
+    const { id } = paramsSchema.parse(req.params)
+
+    const bodySchema = z.object({
+      name: z.string(),
+      email: z.string(),
+      teacherId: z.string(),
+    })
+    const { name, email, teacherId } = bodySchema.parse(req.body)
+
+    try {
+      let student = await prisma.student.findUniqueOrThrow({
+        where: { id },
+      })
+
+      student = await prisma.student.update({
+        where: { id },
+        data: {
+          name,
+          email,
+          teacherId,
+        },
+      })
+
+      return student
+    } catch (err) {
+      if (err instanceof Prisma.PrismaClientKnownRequestError) {
+        if (err.code === 'P2023') {
+          reply.status(404).send({
+            message: `Student not found for id ${id}`,
+          })
+        }
+      }
+    }
+  })
+
+  app.delete('/students/:id', async (req, reply) => {
+    const paramsSchema = z.object({
+      id: z.string(),
+    })
+    const { id } = paramsSchema.parse(req.params)
+
+    try {
+      const student = await prisma.student.findUniqueOrThrow({
+        where: { id },
+      })
+      await prisma.student.delete({
+        where: {
+          id: student.id,
+        },
+      })
+    } catch (err) {
+      if (err instanceof Prisma.PrismaClientKnownRequestError) {
+        if (err.code === 'P2023') {
+          reply.status(404).send({
+            message: `Student not found for id ${id}`,
+          })
+        }
+      }
+    }
   })
 }
