@@ -4,24 +4,24 @@ import { Prisma } from '@prisma/client'
 
 import { prisma } from '../lib/prisma'
 
-export async function teachersRoutes(app: FastifyInstance) {
-  app.get('/teachers', async () => {
-    const teachers = await prisma.teacher.findMany()
-    return teachers
+export async function studentsRoutes(app: FastifyInstance) {
+  app.get('/students', async () => {
+    const students = await prisma.student.findMany()
+    return students
   })
 
-  app.get('/teachers/:id', async (req, reply) => {
+  app.get('/students/:id', async (req, reply) => {
     try {
       const paramsSchema = z.object({
         id: z.string(),
       })
       const { id } = paramsSchema.parse(req.params)
 
-      const teacher = await prisma.teacher.findUniqueOrThrow({
+      const student = await prisma.student.findUniqueOrThrow({
         where: { id },
       })
 
-      return teacher
+      return student
     } catch (err) {
       if (err instanceof Prisma.PrismaClientKnownRequestError) {
         if (err.code === 'P2023') {
@@ -31,22 +31,22 @@ export async function teachersRoutes(app: FastifyInstance) {
     }
   })
 
-  app.post('/teachers', async (req, res) => {
+  app.post('/students', async (req, res) => {
     const bodySchema = z.object({
       name: z.string(),
       email: z.string(),
-      instruct: z.string(),
+      teacherId: z.string(),
     })
-    const { name, email, instruct } = bodySchema.parse(req.body)
+    const { name, email, teacherId } = bodySchema.parse(req.body)
 
-    const teacher = await prisma.teacher.create({
+    const student = await prisma.student.create({
       data: {
         name,
         email,
-        instruct,
+        teacherId,
       },
     })
 
-    return res.status(201).send(teacher)
+    return res.status(201).send(student)
   })
 }

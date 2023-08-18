@@ -4,6 +4,7 @@ import fastify from 'fastify'
 import cors from '@fastify/cors'
 
 import { teachersRoutes } from './routes/teachers'
+import { studentsRoutes } from './routes/students'
 
 const app = fastify()
 const PORT: number = Number(process.env.PORT) || 3333
@@ -13,6 +14,7 @@ app.register(cors, {
 })
 
 app.register(teachersRoutes)
+app.register(studentsRoutes)
 
 app
   .listen({

@@ -16,7 +16,7 @@ model Teacher {
 }
 
 model Student {
-  id    String @id @default(uuid()) @map("_id") @db.ObjectId
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
   name  String
   email String
 
