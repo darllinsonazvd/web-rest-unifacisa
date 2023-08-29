@@ -3,6 +3,7 @@ import { ZodError, z } from 'zod'
 import { Prisma } from '@prisma/client'
 
 import { prisma } from '../lib/prisma'
+import { teacherSchema } from '../schemas/teacher'
 
 export async function teachersRoutes(app: FastifyInstance) {
   app.get('/teachers', async () => {
@@ -34,21 +35,7 @@ export async function teachersRoutes(app: FastifyInstance) {
 
   app.post('/teachers', async (req, res) => {
     try {
-      const bodySchema = z.object({
-        name: z.string({
-          required_error: 'name is required',
-          invalid_type_error: 'name must be a string',
-        }),
-        email: z.string({
-          required_error: 'email is required',
-          invalid_type_error: 'email must be a string',
-        }),
-        instruct: z.string({
-          required_error: 'instruct is required',
-          invalid_type_error: 'instruct must be a string',
-        }),
-      })
-      const { name, email, instruct } = bodySchema.parse(req.body)
+      const { name, email, instruct } = teacherSchema.parse(req.body)
 
       const teacher = await prisma.teacher.create({
         data: {
@@ -73,21 +60,7 @@ export async function teachersRoutes(app: FastifyInstance) {
     const { id } = paramsSchema.parse(req.params)
 
     try {
-      const bodySchema = z.object({
-        name: z.string({
-          required_error: 'name is required',
-          invalid_type_error: 'name must be a string',
-        }),
-        email: z.string({
-          required_error: 'email is required',
-          invalid_type_error: 'email must be a string',
-        }),
-        instruct: z.string({
-          required_error: 'instruct is required',
-          invalid_type_error: 'instruct must be a string',
-        }),
-      })
-      const { name, email, instruct } = bodySchema.parse(req.body)
+      const { name, email, instruct } = teacherSchema.parse(req.body)
 
       let teacher = await prisma.teacher.findUniqueOrThrow({
         where: { id },
