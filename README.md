@@ -24,6 +24,12 @@ Todos os pré-requisitos necessários para execução do projeto deverão ser de
 - [Node Version Manager (Opcional)](https://github.com/nvm-sh/nvm)
 - [Visual Studio Code](https://code.visualstudio.com/)
 
+### Conectando a base de dados 🔄️
+
+Crie um arquivo `.env` na raiz do projeto e insira a linha abaixo:
+
+`DATABASE_URL = "mongodb+srv://darllinsonazvd:cfGly8tJSdfGzll4@universityexample.5awv6zd.mongodb.net/UniversityExample?retryWrites=true&w=majority"`
+
 ### Instalando as Dependências 💾
 
 `npm i`
@@ -38,4 +44,4 @@ Todos os pré-requisitos necessários para execução do projeto deverão ser de
 - [Pedro Henrique Pereira](https://github.com/pedrohpdo)
 - [Pedro Henrique Santos](https://github.com/pedrohsantosg)
 - [Rafael Macedo](https://github.com/rafaelmacedos)
-- [Ramon Montenegro](https://github.com/)
+- [Ramon Montenegro](https://github.com/ramonmontenegropng)
