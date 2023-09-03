@@ -24,11 +24,13 @@ Todos os pré-requisitos necessários para execução do projeto deverão ser de
 - [Node Version Manager (Opcional)](https://github.com/nvm-sh/nvm)
 - [Visual Studio Code](https://code.visualstudio.com/)
 
-### Conectando a base de dados 🔄️
+### Configurando as Variáveis de Ambiente 🌐
+
+O projeto utiliza um arquivo `.env` para armazenar informações sensíveis, como credenciais do banco de dados e configurações de autenticação. Certifique-se de criar um arquivo .env na raiz do projeto e configurar as variáveis necessárias.
 
 Crie um arquivo `.env` na raiz do projeto e insira a linha abaixo:
 
-`DATABASE_URL = "mongodb+srv://darllinsonazvd:cfGly8tJSdfGzll4@universityexample.5awv6zd.mongodb.net/UniversityExample?retryWrites=true&w=majority"`
+`DATABASE_URL="mongodb+srv://darllinsonazvd:cfGly8tJSdfGzll4@universityexample.5awv6zd.mongodb.net/UniversityExample?retryWrites=true&w=majority"`
 
 ### Instalando as Dependências 💾
 
