@@ -30,7 +30,7 @@ O projeto utiliza um arquivo `.env` para armazenar informações sensíveis, com
 
 Crie um arquivo `.env` na raiz do projeto e insira a linha abaixo:
 
-`DATABASE_URL="mongodb+srv://darllinsonazvd:cfGly8tJSdfGzll4@universityexample.5awv6zd.mongodb.net/UniversityExample?retryWrites=true&w=majority"`
+`DATABASE_URL="your_database_url"`
 
 ### Instalando as Dependências 💾
 
