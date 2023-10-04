@@ -35,12 +35,14 @@ export async function productRoutes(app: FastifyInstance) {
 
   app.post('/products', async (req, res) => {
     try {
-      const { name, price, description, imgUrl } = productSchema.parse(req.body)
+      const { name, price, advertiserPhoneNumber, description, imgUrl } =
+        productSchema.parse(req.body)
 
       const product = await prisma.product.create({
         data: {
           name,
           price,
+          advertiserPhoneNumber,
           description,
           imgUrl,
         },
@@ -61,7 +63,8 @@ export async function productRoutes(app: FastifyInstance) {
     const { id } = paramsSchema.parse(req.params)
 
     try {
-      const { name, price, description, imgUrl } = productSchema.parse(req.body)
+      const { name, price, advertiserPhoneNumber, description, imgUrl } =
+        productSchema.parse(req.body)
 
       let product = await prisma.product.findUniqueOrThrow({
         where: { id },
@@ -72,6 +75,7 @@ export async function productRoutes(app: FastifyInstance) {
         data: {
           name,
           price,
+          advertiserPhoneNumber,
           description,
           imgUrl,
         },

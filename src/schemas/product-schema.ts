@@ -9,6 +9,10 @@ export const productSchema = z.object({
     required_error: 'price field is required',
     invalid_type_error: 'price field must be a number',
   }),
+  advertiserPhoneNumber: z.string({
+    required_error: 'advertiser field is required',
+    invalid_type_error: 'advertiser field must be a string',
+  }),
   description: z
     .string({
       invalid_type_error: 'description field must be a string',
